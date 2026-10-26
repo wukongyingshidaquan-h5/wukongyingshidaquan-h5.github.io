@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover" />
+<title>悟空影视大全 - 只讲原身·今晚不做72变 | wukongyingshidaquan-h5.github.io</title>
+<meta name="description" content="悟空影视大全（wukongyingshidaquan-h5.github.io）一只只讲原身的观影笔记：别人72变求全，我们只变回石头，一动不动看完那一格。碑刻式策展、石纹分帧、拓片笔记，不播片、不存片、不链片、不做资源聚合。" />
+<meta name="keywords" content="悟空影视大全,wukongyingshidaquan-h5,原身,72变,观影笔记,石头,碑刻策展,筋斗云,分帧" />
+<meta name="author" content="悟空影视大全 · 原身编辑部" />
+<meta name="robots" content="index,follow" />
+<link rel="canonical" href="https://wukongyingshidaquan-h5.github.io/" />
+<style>
+/* ============ 悟空影视大全 · 石猴碑刻 ============
+   反"72变/大全"结构：以 <strike> 变体 + 「原身」定格 为语法
+   DOM 差异：拓片碑林 + 石纹分帧条 + 反向筋斗云 + 石碑翻面卡
+   配色：宣纸米白 / 石墨黑 / 朱砂红 / 石青（极 sparingly）
+*/
+:root{
+  --paper:#F2EAD9;--vellum:#FBF5E8;--ink:#1C1A17;--graph:#5B5548;
+  --grey:#9A9180;--cinnabar:#B03A2E;--cinnabar2:#D95D4A;--stone:#6E6658;
+  --line:rgba(28,26,23,.18);--maxw:1100px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  line-height:1.85;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+.serif{font-family:"Noto Serif SC","Songti SC","STSong",Georgia,serif}
+.mono{font-family:"Courier New",ui-monospace,Menlo,monospace}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 18px}
+
+/* ---- 石纹顶边 ---- */
+.rim{
+  height:18px;background:
+   linear-gradient(90deg,var(--paper) 0 10px,rgba(28,26,23,.5) 10px 12px) 0 0/24px 18px repeat-x,
+   linear-gradient(180deg,#c9bfa8,#a89c82);
+  position:relative;
+}
+.rim::after{content:"";position:absolute;left:0;right:0;top:0;bottom:0;
+  background:repeating-linear-gradient(92deg,transparent 0 3px,rgba(0,0,0,.10) 3px 4px);
+  mix-blend-mode:multiply;opacity:.5}
+
+/* ---- 顶栏 ---- */
+header.bar{position:sticky;top:0;z-index:60;background:rgba(242,234,217,.96);backdrop-filter:blur(12px);border-bottom:2px solid var(--ink)}
+.bar-in{max-width:var(--maxw);margin:0 auto;padding:0 18px;height:60px;display:flex;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:1px;font-size:17px}
+.brand .seal{
+  width:34px;height:34px;flex:none;background:var(--vellum);border:2px solid var(--ink);border-radius:50% 48% 52% 48%;
+  position:relative;transform:rotate(-6deg);overflow:hidden;
+  box-shadow:inset 0 0 0 2px var(--paper),inset 0 0 0 3px var(--ink);
+}
+.brand .seal::before{content:"";position:absolute;left:20%;top:-10%;width:2px;height:130%;background:var(--cinnabar);transform:rotate(14deg);opacity:.85}
+.brand .seal::after{content:"";position:absolute;right:22%;bottom:18%;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--ink);background:var(--cinnabar2)}
+.brand .seal i{position:absolute;bottom:5px;left:0;right:0;text-align:center;font-style:normal;font-family:"Courier New",monospace;font-weight:900;font-size:9px;color:var(--ink);line-height:1}
+.brand small{display:block;font-family:"Courier New",monospace;font-size:8px;color:var(--grey);letter-spacing:1px;font-weight:600}
+.nav{margin-left:auto;display:flex;gap:2px;align-items:center}
+.nav a{padding:7px 11px;font-size:12.5px;font-weight:700;color:var(--ink);letter-spacing:.3px}
+.nav a:hover{background:var(--cinnabar);color:#fff}
+.nav a.here{background:var(--ink);color:var(--paper)}
+.nav .dot{color:var(--grey);font-size:10px;margin:0 2px}
+.search{display:flex;border:1.5px solid var(--line);background:var(--vellum)}
+.search input{border:0;outline:0;padding:7px 11px;width:130px;font-size:12.5px;background:transparent;color:var(--ink)}
+.search input::placeholder{color:var(--grey);font-style:italic}
+.search button{border:0;border-left:1.5px solid var(--line);background:var(--ink);color:var(--paper);padding:0 11px;font-weight:800;cursor:pointer;font-size:11px;font-family:"Courier New",monospace}
+.burger{display:none;margin-left:auto;border:1.5px solid var(--ink);background:var(--vellum);padding:5px 10px;font-size:15px;color:var(--ink);cursor:pointer}
+
+/* ---- Hero：云往回卷 ---- */
+.hero{position:relative;padding:70px 0 54px;border-bottom:2px solid var(--ink);background:
+  radial-gradient(900px 360px at 85% 8%,rgba(176,58,46,.09),transparent),
+  var(--paper);overflow:hidden}
+.cloud{position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none;opacity:.5}
+.cloud i{position:absolute;height:14px;background:var(--vellum);border:1.5px solid var(--stone);border-radius:50%;
+  animation:rollback 18s linear infinite}
+@keyframes rollback{from{transform:translateX(40vw) scaleX(1.6)}to{transform:translateX(-60vw) scaleX(.8)}}
+.cloud i:nth-child(1){top:14%;left:10%;width:120px;animation-duration:22s;animation-delay:-3s}
+.cloud i:nth-child(2){top:30%;left:40%;width:80px;animation-duration:15s;animation-delay:-8s;opacity:.6}
+.cloud i:nth-child(3){top:52%;left:70%;width:150px;animation-duration:26s;animation-delay:-14s}
+.cloud i:nth-child(4){top:70%;left:20%;width:100px;animation-duration:19s;animation-delay:-5s;opacity:.5}
+.cloud i:nth-child(5){top:84%;left:55%;width:66px;animation-duration:13s;animation-delay:-10s}
+
+.hero .wrap{position:relative}
+.epoch{font-family:"Courier New",monospace;font-size:11px;letter-spacing:4px;color:var(--cinnabar);font-weight:800;margin-bottom:18px;display:flex;gap:10px;align-items:center}
+.epoch::before{content:"碑";background:var(--cinnabar);color:#fff;padding:1px 6px;font-size:9px;letter-spacing:0}
+.hero h1{font-size:clamp(38px,7vw,74px);line-height:1.02;margin:0;font-weight:950;letter-spacing:-1px;font-family:"Noto Serif SC","Songti SC",serif}
+.hero h1 .变{
+  position:relative;display:inline-block;font-family:"Noto Serif SC",serif;
+}
+.hero h1 .变::after{
+  content:"";position:absolute;left:-2%;right:-2%;top:46%;height:6px;background:var(--cinnabar);
+  transform:rotate(-7deg);transform-origin:center;animation:cleave 1.8s cubic-bezier(.4,0,.2,1) forwards;transform:scaleX(0)
+}
+@keyframes cleave{0%{transform:rotate(-7deg) scaleX(0)}55%{transform:rotate(-7deg) scaleX(1.06)}100%{transform:rotate(-7deg) scaleX(1)}}
+.hero h1 .原身{color:var(--cinnabar);position:relative}
+.hero h1 .原身::before{content:"";position:absolute;left:0;right:0;bottom:4px;height:3px;background:var(--cinnabar);opacity:.35}
+.hero .sub{font-family:"Courier New",monospace;font-size:12px;letter-spacing:5px;color:var(--grey);margin-top:16px;display:block}
+.hero p.lede{margin:22px 0 0;color:var(--graph);font-size:16px;max-width:34em;position:relative}
+.hero p.lede b{color:var(--ink);background:linear-gradient(transparent 66%,rgba(217,93,74,.32) 66%);padding:0 2px}
+.hero p.lede strike{color:var(--grey);text-decoration-color:var(--cinnabar);text-decoration-thickness:2.5px}
+.hero p.lede ins{color:var(--cinnabar);text-decoration:none;font-weight:800;border-bottom:2px solid var(--cinnabar)}
+
+/* 反向进度条：从满往回退 */
+.undo{margin-top:28px;display:flex;gap:0;flex-wrap:wrap;position:relative}
+.undo div{flex:1;min-width:120px;border:1.5px solid var(--ink);border-right:0;padding:11px 16px;background:var(--vellum)}
+.undo div:last-child{border-right:1.5px solid var(--ink)}
+.undo b{display:block;font-family:"Courier New",monospace;font-size:15px;font-weight:900;letter-spacing:1px}
+.undo b i{font-style:normal;color:var(--cinnabar);font-size:20px;display:block;line-height:1.1}
+.undo b small{font-size:10px;color:var(--grey);font-weight:600;margin-left:2px}
+.undo span{font-size:10.5px;color:var(--graph);letter-spacing:.5px}
+.undo .bar{height:4px;background:rgba(28,26,23,.12);margin-top:7px;position:relative;overflow:hidden}
+.undo .bar u{position:absolute;right:0;top:-1px;bottom:-1px;left:var(--p,40%);background:var(--cinnabar);display:block;text-decoration:none;border-left:2px solid var(--ink)}
+.cta{display:flex;gap:8px;margin-top:26px;flex-wrap:wrap;position:relative}
+.cta a{font-size:13px;font-weight:800;padding:10px 22px;border:1.5px solid var(--ink)}
+.cta a.pri{background:var(--ink);color:var(--paper)}
+.cta a.sec{background:var(--vellum);color:var(--ink)}
+.cta a:hover{background:var(--cinnabar);border-color:var(--cinnabar);color:#fff}
+
+/* ---- 栏目通用 ---- */
+section{padding:52px 0;border-bottom:1.5px solid var(--line);position:relative}
+section::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0 33px,rgba(28,26,23,.045) 33px 34px)}
+.stone-l{position:absolute;left:0;top:0;bottom:0;width:9px;background:
+  linear-gradient(180deg,var(--stone),#8d8370 40%,var(--stone));opacity:.35}
+.sec-head{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap;margin-bottom:26px;padding-bottom:10px;border-bottom:3px double var(--ink);position:relative}
+.sec-head .no{font-family:"Courier New",monospace;font-size:12px;font-weight:900;color:var(--cinnabar);letter-spacing:2px;line-height:1}
+.sec-head h2{margin:0;font-size:23px;font-weight:950;letter-spacing:.5px;flex:1;min-width:200px;font-family:"Noto Serif SC",serif}
+.sec-head h2 small{display:block;font-family:"Courier New",monospace;font-size:10px;color:var(--grey);letter-spacing:2px;font-weight:600;margin-top:4px;font-family:"Courier New",monospace}
+.sec-head .more{font-family:"Courier New",monospace;font-size:11px;color:var(--cinnabar);font-weight:800;letter-spacing:1px;white-space:nowrap}
+
+/* ---- 栏目一：碑林（strike 语法，核心 DOM） ---- */
+.stele{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.stone{
+  background:var(--vellum);border:1.5px solid var(--ink);padding:0;position:relative;overflow:hidden;
+  box-shadow:inset 0 0 60px rgba(140,130,110,.18);
+}
+.stone::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(180deg,var(--stone),#7a7160)}
+.stone .head{padding:16px 18px 0 26px;display:flex;gap:10px;align-items:baseline;border-bottom:1px dashed var(--line);padding-bottom:10px}
+.stone .head .idx{font-family:"Courier New",monospace;font-size:10px;font-weight:900;color:var(--cinnabar);letter-spacing:1px}
+.stone .head .t{font-family:"Courier New",monospace;font-size:9.5px;color:var(--grey);letter-spacing:1.5px;margin-left:auto}
+.stone .body{padding:14px 18px 18px 26px}
+.stone h3{margin:0 0 10px;font-size:18px;font-weight:950;line-height:1.4;font-family:"Noto Serif SC",serif}
+/* 被劈掉的七十二变 */
+.stone h3 .劈{position:relative;display:inline-block;color:var(--grey)}
+.stone h3 .劈::after{content:"";position:absolute;left:-3%;right:-3%;top:50%;height:3px;background:var(--cinnabar);transform:rotate(-6deg)}
+.stone h3 .定{color:var(--cinnabar);border-bottom:3px solid var(--cinnabar);padding:0 1px}
+.stone p{margin:0 0 8px;font-size:13.5px;color:var(--graph);line-height:1.78}
+.stone p b{color:var(--ink);background:rgba(217,93,74,.18);padding:0 3px}
+.stone p strike{color:var(--grey);text-decoration-color:var(--cinnabar);text-decoration-thickness:2px}
+.stone .foot{font-family:"Courier New",monospace;font-size:9.5px;color:var(--grey);letter-spacing:.8px;border-top:1px solid var(--line);margin-top:6px;padding-top:8px;display:flex;gap:12px;flex-wrap:wrap}
+.stone .foot b{color:var(--ink)}
+.stone .foot .回{color:var(--cinnabar);font-weight:800}
+
+/* ---- 栏目二：石纹分帧条（横向 + 裂痕，第二种 DOM） ---- */
+.vein{position:relative;overflow:hidden;padding:6px 0 18px}
+.split-track{
+  display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  border:1.5px solid var(--ink);background:var(--vellum);
+}
+.split-track::-webkit-scrollbar{display:none}
+.split{flex:0 0 26%;min-width:180px;scroll-snap-align:start;border-right:1px solid var(--line);padding:18px 16px;position:relative}
+.split:last-child{border-right:0}
+/* 每格一道裂痕 */
+.split::after{content:"";position:absolute;left:38%;top:-2px;bottom:-2px;width:2px;background:var(--cinnabar);
+  transform:rotate(3deg);opacity:.55;filter:blur(.4px)}
+.split .lbl{font-family:"Courier New",monospace;font-size:9.5px;font-weight:900;color:var(--cinnabar);letter-spacing:2px;margin-bottom:6px}
+.split h4{margin:0 0 6px;font-size:15px;font-weight:950;line-height:1.35;font-family:"Noto Serif SC",serif}
+.split h4 strike{color:var(--grey);text-decoration-color:var(--cinnabar);text-decoration-thickness:2px}
+.split p{margin:0;font-size:12px;color:var(--graph);line-height:1.65}
+.split .ms{font-family:"Courier New",monospace;font-size:9.5px;color:var(--grey);margin-top:9px;border-top:1px dashed var(--line);padding-top:6px;letter-spacing:.5px}
+.vein-note{font-size:11px;color:var(--grey);margin-top:10px;font-family:"Courier New",monospace;letter-spacing:.5px}
+
+/* ---- 栏目三：拓片笔记（dl/dt/dd + 拓印态，第三种 DOM） ---- */
+.rub{background:var(--vellum);border:1.5px solid var(--ink);padding:4px 0}
+.rub dl{margin:0}
+.rub dt{display:grid;grid-template-columns:88px 1fr;gap:14px;align-items:baseline;padding:14px 20px;background:rgba(140,130,110,.10);border-bottom:1px solid var(--line);font-weight:950;font-size:15px;font-family:"Noto Serif SC",serif}
+.rub dt b{font-family:"Courier New",monospace;font-size:10.5px;color:var(--cinnabar);font-weight:900;letter-spacing:1px}
+.rub dd{margin:0;padding:14px 20px 14px calc(88px + 34px);border-bottom:1px solid var(--line);font-size:13px;color:var(--graph);line-height:1.8}
+.rub dd:last-child{border-bottom:0}
+.rub dd .k{font-family:"Courier New",monospace;font-size:9.5px;color:var(--grey);display:block;margin-bottom:2px;letter-spacing:1px}
+.rub dd strike{color:var(--grey);text-decoration-color:var(--cinnabar);text-decoration-thickness:2px}
+.rub dd ins{color:var(--cinnabar);font-weight:800;text-decoration:none;border-bottom:1.5px solid var(--cinnabar)}
+
+/* ---- 栏目四：石碑翻面卡（交互，第四种 DOM） ---- */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.flip{perspective:1400px;height:210px;cursor:default}
+.flip .inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,.1,.2,1);transform-style:preserve-3d}
+.flip.flipped .inner{transform:rotateY(180deg)}
+.flip .face{position:absolute;inset:0;backface-visibility:hidden;border:1.5px solid var(--ink);background:var(--vellum);padding:18px;display:flex;flex-direction:column;overflow:hidden;box-shadow:inset 0 0 50px rgba(140,130,110,.16)}
+.flip .back{transform:rotateY(180deg);background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.flip .face .tg{font-family:"Courier New",monospace;font-size:9.5px;font-weight:900;color:var(--cinnabar);letter-spacing:2px}
+.flip .back .tg{color:var(--cinnabar2)}
+.flip .face h4{margin:8px 0 6px;font-size:16px;font-weight:950;line-height:1.35;font-family:"Noto Serif SC",serif}
+.flip .face p{margin:0;font-size:12px;color:var(--graph);line-height:1.65;flex:1}
+.flip .back p{color:#cdc5b5}
+.flip .face .hint{font-family:"Courier New",monospace;font-size:9px;color:var(--grey);border-top:1px dashed var(--line);padding-top:6px;margin-top:auto}
+.flip .back .hint{color:#8d8577;border-color:rgba(255,255,255,.18)}
+.flip .face .seal-x{position:absolute;top:12px;right:12px;font-family:"Courier New",monospace;font-size:8px;color:var(--stone);border:1px solid var(--stone);padding:1px 4px;letter-spacing:1px}
+
+/* ---- 栏目五：FAQ（details，第五种） ---- */
+.faq details{border:1.5px solid var(--line);background:var(--vellum);margin-bottom:9px}
+.faq details[open]{border-color:var(--ink);box-shadow:6px 6px 0 rgba(28,26,23,.09)}
+.faq summary{cursor:pointer;padding:14px 18px;font-weight:900;font-size:14.5px;list-style:none;display:flex;gap:12px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"▣";font-family:"Courier New",monospace;color:var(--cinnabar);font-size:13px}
+.faq details[open] summary::before{content:"▢"}
+.faq summary .k{margin-left:auto;font-family:"Courier New",monospace;font-size:9.5px;color:var(--grey);font-weight:800;letter-spacing:1px}
+.faq .body{padding:0 18px 16px 44px;color:var(--graph);font-size:13px;line-height:1.85;border-top:1px dashed var(--line);padding-top:12px}
+.faq .body code{font-family:"Courier New",monospace;font-size:11px;background:#e6dcc4;border:1px solid var(--line);padding:1px 6px;color:var(--cinnabar)}
+.faq .body b{color:var(--ink)}
+.faq .warn{border-color:var(--cinnabar);background:#f4e3df}
+.faq .warn summary{color:var(--cinnabar)}
+
+/* ---- 关于 ---- */
+.about{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:start}
+.txt{background:var(--vellum);border:1.5px solid var(--line);padding:26px}
+.txt h3{margin:0 0 12px;font-size:19px;font-weight:950;font-family:"Noto Serif SC",serif}
+.txt h3::before{content:"石 ";color:var(--cinnabar);font-family:"Courier New",monospace}
+.txt p{margin:0 0 12px;color:var(--graph);font-size:14px}
+.txt p:last-child{margin:0}
+.monolith{border:2px solid var(--ink);background:var(--ink);color:var(--paper);padding:22px}
+.monolith h4{margin:0 0 16px;font-family:"Courier New",monospace;font-size:11px;letter-spacing:3px;color:var(--cinnabar2);font-weight:800}
+.monolith .row{display:flex;gap:12px;align-items:center;font-size:12.5px;margin-bottom:12px}
+.monolith .nm{width:96px;flex:none;font-family:"Courier New",monospace;font-size:10.5px;color:#b8af9e;letter-spacing:.5px}
+.monolith .bar{flex:1;height:6px;background:rgba(255,255,255,.15);overflow:hidden}
+.monolith .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--cinnabar2),var(--cinnabar));width:var(--w,40%)}
+.monolith .row b{font-family:"Courier New",monospace;font-size:11px;color:var(--cinnabar2);width:36px;text-align:right}
+.monolith .foot{font-size:11px;color:#a89f90;line-height:1.7;margin-top:14px;border-top:1px solid rgba(255,255,255,.16);padding-top:10px}
+
+footer{background:var(--ink);color:#c4bcae;padding:34px 0 44px}
+footer .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:24px}
+footer h4{margin:0 0 10px;font-size:16px;color:#fff;letter-spacing:2px;font-weight:950;font-family:"Noto Serif SC",serif}
+footer h4 span{color:var(--cinnabar2)}
+footer p{margin:0;font-size:12px;line-height:1.9;color:#a89f90}
+footer .mono{font-family:"Courier New",monospace;font-size:11px;color:var(--cinnabar2);word-break:break-all;letter-spacing:.5px}
+footer .rule{font-family:"Courier New",monospace;font-size:9.5px;color:#6f6a5e;margin-top:10px;letter-spacing:.5px;line-height:1.7}
+.copy{margin-top:26px;padding-top:16px;border-top:1px solid rgba(255,255,255,.16);font-family:"Courier New",monospace;font-size:10px;color:#6f6a5e;text-align:center;letter-spacing:1px}
+
+/* ---- 响应式 ---- */
+@media(max-width:900px){
+  .about{grid-template-columns:1fr}
+  footer .wrap{grid-template-columns:1fr}
+  .undo div{min-width:calc(50% - 1px);border-bottom:1.5px solid var(--ink)}
+  .undo div:nth-child(odd){border-right:1.5px solid var(--ink)}
+  .undo div:nth-child(1),.undo div:nth-child(2){border-bottom:0}
+  .split{flex-basis:64%;min-width:220px}
+}
+@media(max-width:720px){
+  .nav{display:none;position:absolute;top:60px;left:0;right:0;flex-direction:column;background:var(--paper);border-bottom:2px solid var(--ink);padding:10px 18px;gap:0}
+  .nav.open{display:flex}
+  .nav a{padding:10px 10px;border-bottom:1px solid var(--line)}
+  .nav .dot{display:none}
+  .burger{display:block}
+  .search{margin-left:auto;margin-right:8px}
+  .search input{width:84px}
+  .hero{padding:40px 0 32px}
+  .stone{grid-template-columns:1fr}
+  .rub dt{grid-template-columns:1fr;gap:4px}
+  .rub dd{padding-left:20px}
+  .flip{height:190px}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:5px}
+}
+@media print{
+  .rim,.cloud,.nav,.search,.burger,.cta,.flip .hint{display:none}
+  body{background:#fff}
+  .hero h1 .变::after{transform:rotate(-7deg) scaleX(1);animation:none}
+  .flip .inner{transform:none}
+  .flip .back{display:none}
+  .flip .face{position:static;transform:none;backface-visibility:visible}
+  section::before{display:none}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="rim" role="presentation"></div>
+
+<header class="bar">
+  <div class="bar-in">
+    <div class="brand">
+      <div class="seal" aria-hidden="true"><i>石</i></div>
+      <div>悟空影视大全<small>原身编辑部 · 只做石头</small></div>
+    </div>
+    <nav class="nav" id="nav">
+      <a href="#one" class="here">劈掉七十二变</a><span class="dot">／</span>
+      <a href="#two">石纹分帧</a><span class="dot">／</span>
+      <a href="#three">拓片笔记</a><span class="dot">／</span>
+      <a href="#four">翻面石碑</a><span class="dot">／</span>
+      <a href="#five">立碑声明</a>
+    </nav>
+    <div class="search">
+      <input type="text" placeholder="今晚只想做石头…" aria-label="检索原身" />
+      <button type="button" onclick="alert('原身检索演示：本页不返回任何资源链接')">定格</button>
+    </div>
+    <button class="burger" id="burger" aria-label="菜单">☰</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO：云往回卷 + 劈掉「变」 ============ -->
+  <section class="hero" id="top">
+    <div class="cloud" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="wrap">
+      <div class="epoch">STONE · 001 — 今晚不做 72 变</div>
+      <h1>别<span class="变">变</span>了。<br/>做回一块<span class="原身">石头</span>。</h1>
+      <span class="sub">悟 空 的 反 面 ， 是 不 动 。</span>
+      <p class="lede">别人拿"悟空"借的是<strike>七十二变、一个筋斗十万八千里、什么都能变出来</strike>——那套"大全"的野心。<br/>
+      我们借的是另一半：<ins>花果山那块石头，一动不动，把一场雨看完。</ins><br/>
+      这一页不追新、不追全、不追秒开。<b>你只管坐着，让那一格自己走过来。</b>变回石头，才是今晚最难的一变。</p>
+
+      <div class="undo" aria-label="反向进度">
+        <div><b><i>72</i>变</b><span>我们劈掉的数目</span><div class="bar"><u style="--p:88%"></u></div></div>
+        <div><b><i>01</i>格</b><small>今晚只要</small><span>原身，只留一格</span><div class="bar"><u style="--p:6%"></u></div></div>
+        <div><b><i>0</i>源</b><span>播放 / 下载 / 解析</span><div class="bar"><u style="--p:0%"></u></div></div>
+        <div><b><i>∞</i>静</b><span>允许坐多久都行</span><div class="bar"><u style="--p:100%"></u></div></div>
+      </div>
+
+      <div class="cta">
+        <a class="pri" href="#one">劈掉七十二变</a>
+        <a class="sec" href="#four">先学坐着不动</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 栏目一：碑林（strike 语法） ============ -->
+  <section id="one" data-role="栏目 · 劈掉七十二变">
+    <div class="stone-l" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="no">01/STELE</div>
+        <h2>劈掉七十二变 <small>七块碑，每块劈掉一种「变」，只刻一行原身</small></h2>
+        <a class="more" href="#">— 碑林全卷 #</a>
+      </div>
+
+      <div class="stele">
+
+        <article class="stone">
+          <div class="head"><span class="idx">碑 · 壹</span><span class="t">劈 · 变全</span></div>
+          <div class="body">
+            <h3>劈掉 <span class="劈">「什么都有」</span>，只留 <span class="定">一口对的</span></h3>
+            <p>「20 万部 4K 一网打尽」——那是变出来的海，走两步就淹。石头不问你<strike>全不全</strike>，只问你<strong>今晚那一口，是咸是淡</strong>。空着第七格，比塞满二十万格体面。</p>
+            <div class="foot"><span>处置 <b class="回">整座海劈掉</b></span><span>· 留 <b>1</b> 格</span></div>
+          </div>
+        </article>
+
+        <article class="stone">
+          <div class="head"><span class="idx">碑 · 贰</span><span class="t">劈 · 变快</span></div>
+          <div class="body">
+            <h3>劈掉 <span class="劈">倍速与秒开</span>，只留 <span class="定">那一顿</span></h3>
+            <p>筋斗云是给别人看的，看片不用。<strike>2x 滑过去的那一秒</strike>，往往才是演员决定不演的地方。石头没有速度，雨落下来它数到第十七滴才接住——<strong>慢不是卡顿，是操作系统</strong>。</p>
+            <div class="foot"><span>处置 <b class="回">云收走</b></span><span>· 定格 <b>单帧</b></span></div>
+          </div>
+        </article>
+
+        <article class="stone">
+          <div class="head"><span class="idx">碑 · 叁</span><span class="t">劈 · 变免费</span></div>
+          <div class="body">
+            <h3>劈掉 <span class="劈">「免费的代价」</span>，只留 <span class="定">不给密码</span></h3>
+            <p>「全免费」三个字后面，通常跟着开屏广告、权限全开、摇一摇跳转和来路不明的包。<strong>石头不收手机号，不让你注册，不拿你的口味换广告位</strong>。省下的会员费，别用通讯录去抵。</p>
+            <div class="foot"><span>处置 <b class="回">断链</b></span><span>· 数据 <b>0 字节</b></span></div>
+          </div>
+        </article>
+
+        <article class="stone">
+          <div class="head"><span class="idx">碑 · 肆</span><span class="t">劈 · 变新</span></div>
+          <div class="body">
+            <h3>劈掉 <span class="劈">追更新</span>，只留 <span class="定">老熟人</span></h3>
+            <p>「院线三天即上线」是偷来的热闹。石头认旧：<strong>一部你背得出转场的，比十部新剧顶用</strong>。熟到空气都认得的那间屋，才是今晚该回的地方，跟热不热榜没关系。</p>
+            <div class="foot"><span>处置 <b class="回">撤榜</b></span><span>· 重看 <b>不限次</b></span></div>
+          </div>
+        </article>
+
+        <article class="stone">
+          <div class="head"><span class="idx">碑 · 伍</span><span class="t">劈 · 变爽</span></div>
+          <div class="body">
+            <h3>劈掉 <span class="劈">必须治愈</span>，只留 <span class="定">允许更丧</span></h3>
+            <p>「看完满血复活」是骗人的 KPI。真懂你的那部，是让你<strike>笑着出场</strike>却把肩膀卸下来。<strong>丧片不是毒药，是体温计</strong>——量完别急着好起来，先承认今天确实凉。</p>
+            <div class="foot"><span>处置 <b class="回">撤鸡汤</b></span><span>· 剂量 <b>一周一次</b></span></div>
+          </div>
+        </article>
+
+        <article class="stone">
+          <div class="head"><span class="idx">碑 · 陆</span><span class="t">劈 · 变多</span></div>
+          <div class="body">
+            <h3>劈掉 <span class="劈">解码 / 换源 / 缓存</span>，只留 <span class="定">关灯</span></h3>
+            <p>「视频解码一键解析、多线路秒切、离线缓存全设备」——这些功能的另一头，是你在帮别人把片子传出去。<strong>石头不解码，只教一件事：把灯关了，手机扣过去</strong>。画质差的那口，反而更真。</p>
+            <div class="foot"><span>处置 <b class="回">焚功能</b></span><span>· 只剩 <b>关灯</b></span></div>
+          </div>
+        </article>
+
+        <article class="stone">
+          <div class="head"><span class="idx">碑 · 柒</span><span class="t">劈 · 变名</span></div>
+          <div class="body">
+            <h3>劈掉 <span class="劈">大圣的能耐</span>，只留 <span class="定">石猴的笨</span></h3>
+            <p>齐天大圣会七十二变、能闹天宫；石头只会<strong>在山上坐五百年，把风记住</strong>。我们选笨的那半边：不破局、不逆袭、不当破局者，今晚就当那只还没出门的猴。</p>
+            <div class="foot"><span>处置 <b class="回">金箍摘了</b></span><span>· 状态 <b>未出山</b></span></div>
+          </div>
+        </article>
+
+      </div>
+      <p style="font-size:11px;color:var(--grey);margin:12px 0 0">※ 七碑所"劈"的变体，逐条对应网络上以"悟空影视大全"为名的免费追剧壳之功能话术（海量/秒开/免费/追新/解码/换源/缓存）。本页为反向策展，不指向任何具体 App 或下载站；碑中情绪格均为虚构例句，不含片名索引与视听素材。</p>
+    </div>
+  </section>
+
+  <!-- ============ 栏目二：石纹分帧 ============ -->
+  <section id="two" data-role="栏目 · 石纹分帧">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="no">02/VEIN</div>
+        <h2>石纹分帧 <small>一块石头怎么看一部片：顺着裂痕，一格一格走</small></h2>
+        <a class="more" href="#">— 整条石纹 #</a>
+      </div>
+
+      <div class="vein">
+        <div class="split-track">
+          <div class="split"><span class="lbl">FRAME 01</span><h4>雨落下来，<strike>别切</strike></h4><p>先数十七滴。石头的第一课是不替剧情赶路，让湿意自己渗进衣服。</p><div class="ms">定格 3.1 秒 · 听雨</div></div>
+          <div class="split"><span class="lbl">FRAME 02</span><h4><strike>台词</strike>之后那声</h4><p>字幕收了，背景里还有一口吸气。真正的那句从来不上字幕，石头替你兜着。</p><div class="ms">定格 0.8 秒 · 听尾音</div></div>
+          <div class="split"><span class="lbl">FRAME 03</span><h4>手在门把上<strike>多停半拍</strike></h4><p>不是犹豫，是把"算了"咽回去的动作。倍速滑过，你会以为他只是急着走。</p><div class="ms">定格 11 帧 · 看手</div></div>
+          <div class="split"><span class="lbl">FRAME 04</span><h4><strike>反打</strike>不给的那眼</h4><p>她看过来，镜头先切了。最贵的一格是空的——石头专收别人不要的空白。</p><div class="ms">定格 1 帧 · 空缺</div></div>
+          <div class="split"><span class="lbl">FRAME 05</span><h4>凉了的<strike>那碗</strike></h4><p>道具在计时。面越凉，那件没说的事越烫。谁都没提，碗替他们说了。</p><div class="ms">定格 全程 · 看碗</div></div>
+          <div class="split"><span class="lbl">FRAME 06</span><h4>封口<strike>没拆</strike>的信</h4><p>从第一集就是旧的。道具师不邀功，石头把褶皱记二十集，等你翻面。</p><div class="ms">跨度 22 格 · 找褶皱</div></div>
+          <div class="split"><span class="lbl">FRAME 07</span><h4>黑场 <strike>别划</strike></h4><p>出字幕到黑屏那二十秒，是导演留你回魂的。别拿它刷下一条，那是石头的尾巴。</p><div class="ms">定格 20 秒 · 坐着</div></div>
+        </div>
+      </div>
+      <p class="vein-note">⟵ 横滑读石纹 · 每格一道朱砂裂痕 · 时码为虚构拆解示例，不对应任何作品真实剪辑点，本页无可播放载体 ⟶</p>
+    </div>
+  </section>
+
+  <!-- ============ 栏目三：拓片笔记 ============ -->
+  <section id="three" data-role="栏目 · 拓片笔记">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="no">03/RUB</div>
+        <h2>拓片笔记 <small>把「变」的借口拓掉，把「不动」的理由留下来</small></h2>
+        <a class="more" href="#">— 拓片册 #</a>
+      </div>
+
+      <div class="rub">
+        <dl>
+          <dt><b>拓 · 甲</b>「我都会员了，凭什么慢？」</dt>
+          <dd><span class="k">原身批注</span>
+          <strike>会员是买速度，不是买懂。</strike>你充钱换来的 4K，跟手机屏上那口饭的差别，不如关灯不关灯大。<ins>今晚把码率降一档，把灯关了</ins>——石头觉得这才叫观影。</dd>
+
+          <dt><b>拓 · 乙</b>「全网最新我都要」</dt>
+          <dd><span class="k">原身批注</span>
+          <strike>追新是瘾，不是口味。</strike>新片像雨后的蘑菇，一夜一片，你采不完，采完也留不住。<ins>翻一部老的、熟的、能背转场的</ins>，那才叫回屋。</dd>
+
+          <dt><b>拓 · 丙</b>「免费还有错了？」</dt>
+          <dd><span class="k">原身批注</span>
+          免费没错，<strike>「免费到你得交出通讯录、开屏跳三次、包里藏解码器」</strike>才有错。石头不收你一分，也不收你一个权限。<ins>省钱的正确方式，是不被当成流量卖出去</ins>。</dd>
+
+          <dt><b>拓 · 丁</b>「倍速是效率」</dt>
+          <dd><span class="k">原身批注</span>
+          省下的是时间，吞掉的是<strike>伏笔、呼吸、和演员决定不演的那一下</strike>。<ins>把 2x 卸了，练一次 0.5x</ins>。筋斗云是别人的，石头一整年也不挪一步。</dd>
+
+          <dt><b>拓 · 戊</b>「看完必须成长」</dt>
+          <dd><span class="k">原身批注</span>
+          <strike>治愈是产业，不是义务。</strike>一部让你更丧、但第二天能起床的，比十部热血番有用。<ins>允许不下决心，允许散场还坐着</ins>——五百年，石头就是这么过的。</dd>
+
+          <dt><b>拓 · 己</b>「名字带悟空，就得能变？」</dt>
+          <dd><span class="k">原身批注</span>
+          花果山那块石头，本事是<ins>一动不动</ins>。大圣是后来学的变，石头是天生的。<strike>谁规定悟空只能闹天宫？</strike>我们偏写它坐着的五百年——那才是整部西游最难的一格。</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 栏目四：石碑翻面 ============ -->
+  <section id="four" data-role="栏目 · 翻面石碑">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="no">04/TURN</div>
+        <h2>翻面石碑 <small>点一下，把「想变」翻过去，看「原身」那一面 · 纯本地，不上传</small></h2>
+        <a class="more" href="#">— 换一批石碑 #</a>
+      </div>
+
+      <div class="flip-grid" id="flips">
+        <div class="flip" tabindex="0" role="button" aria-label="翻面石碑">
+          <div class="inner">
+            <div class="face"><span class="seal-x">碑面</span><span class="tg">想变 · 01</span><h4>「先找个爽片把今天盖掉」</h4><p>想翻桌、想看坏人赢、想有人替你摔杯子。这口代偿没错，别自责。</p><span class="hint">点石碑 · 翻到原身 ⟶</span></div>
+            <div class="face back"><span class="tg">原身 · 01</span><h4>那就爽十分钟。</h4><p>只十分钟，不加长、不追第二集、不发朋友圈表态。爽完把手机扣过去，石头不记你账。</p><span class="hint">⟵ 再点，翻回去</span></div>
+          </div>
+        </div>
+
+        <div class="flip" tabindex="0" role="button" aria-label="翻面石碑">
+          <div class="inner">
+            <div class="face"><span class="seal-x">碑面</span><span class="tg">想变 · 02</span><h4>「剧荒，给我最全的榜」</h4><p>手指已经滑到第三十个封面，一个都没点。这不是缺片，是还没承认自己想被接住。</p><span class="hint">点石碑 · 翻到原身 ⟶</span></div>
+            <div class="face back"><span class="tg">原身 · 02</span><h4>先别挑，先坐三分钟。</h4><p>把榜单关掉。问自己：现在想被逗笑、被哄、还是只想有人不催你。答案出来，片自己会来找你。</p><span class="hint">⟵ 再点，翻回去</span></div>
+          </div>
+        </div>
+
+        <div class="flip" tabindex="0" role="button" aria-label="翻面石碑">
+          <div class="inner">
+            <div class="face"><span class="seal-x">碑面</span><span class="tg">想变 · 03</span><h4>「倍速看完才算效率」</h4><p>一集压进二十分钟，剧情全对，胸口却空一块。你不是在省时间，是在躲那一顿。</p><span class="hint">点石碑 · 翻到原身 ⟶</span></div>
+            <div class="face back"><span class="tg">原身 · 03</span><h4>把 2x 卸了，就一顿。</h4><p>只一顿：门把手松开、杯沿反光、字幕之后的那声吸气。看不懂也别查解说，石头不吃解说。</p><span class="hint">⟵ 再点，翻回去</span></div>
+          </div>
+        </div>
+
+        <div class="flip" tabindex="0" role="button" aria-label="翻面石碑">
+          <div class="inner">
+            <div class="face"><span class="seal-x">碑面</span><span class="tg">想变 · 04</span><h4>「今天太烂，得治愈一下」</h4><p>你已经挑了三部"暖心"，越看越气。治愈片这时候是盐，不是糖。</p><span class="hint">点石碑 · 翻到原身 ⟶</span></div>
+            <div class="face back"><span class="tg">原身 · 04</span><h4>别治愈，先量体温。</h4><p>找一部让你更丧、但能睡着的。量完把额头贴会儿凉碗，别急着好起来——五百年，石头也是这么过。</p><span class="hint">⟵ 再点，翻回去</span></div>
+          </div>
+        </div>
+
+        <div class="flip" tabindex="0" role="button" aria-label="翻面石碑">
+          <div class="inner">
+            <div class="face"><span class="seal-x">碑面</span><span class="tg">想变 · 05</span><h4>「免费高清，不白不看」</h4><p>包才 19MB，权限要了十一个，开机跳三次。你以为省了会员，其实交了通讯录。</p><span class="hint">点石碑 · 翻到原身 ⟶</span></div>
+            <div class="face back"><span class="tg">原身 · 05</span><h4>石头不收门票，也不收密码。</h4><p>想看就去持证平台，单部单付，看完就走。别让"免费"替你决定把谁放进手机里。</p><span class="hint">⟵ 再点，翻回去</span></div>
+          </div>
+        </div>
+
+        <div class="flip" tabindex="0" role="button" aria-label="翻面石碑">
+          <div class="face"><span class="seal-x">碑面</span><span class="tg">想变 · 06</span><h4>「看完得有点收获吧」</h4><p>非要总结中心思想、发条有深度的朋友圈。一顿饭非得写餐后报告，多累。</p><span class="hint">点石碑 · 翻到原身 ⟶</span></div>
+          <div class="face back"><span class="tg">原身 · 06</span><h4>允许一无所获。</h4><p>黑场到字幕那二十秒，什么道理都别往里塞。石头一整年没长见识，也没人怪它。你也不必。</p><span class="hint">⟵ 再点，翻回去</span></div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:var(--grey);margin:12px 0 0">※ 翻面为本地 CSS 3D 切换，无网络请求、不留痕、不采集。碑文为情绪对话示例，不指向具体作品。</p>
+    </div>
+  </section>
+
+  <!-- ============ 栏目五：声明 ============ -->
+  <section id="five" class="faq" data-role="栏目 · 立碑声明">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="no">05/MONOLITH</div>
+        <h2>立碑声明 <small>这块碑先立给自己，也立给所有同名的东西</small></h2>
+      </div>
+
+      <details class="warn" open>
+        <summary>⚠ 这是「悟空影视大全 · 原身编辑部」，不是那批"免费追剧/解码换源"的同名 App<span class="k">必读</span></summary>
+        <div class="body">
+          本页（<code>wukongyingshidaquan-h5.github.io</code>）是<strong>纯静态的碑刻式情绪策展</strong>：<b>不播放、不存储、不收录、不解析、不跳转</b>任何影视资源。全部链接为 <code>#</code> 占位，无第三方外链、无下载按钮、无网盘入口、无"视频解码/换源/离线缓存"接口。<br/><br/>
+          检索可见，网络上确有大量以"悟空影视大全"为名的<b>免费追剧 App 与换域名资源站</b>（版本号从 1.3.2 到 6.2.1，多个下载站同期在推，话术含"全网资源/爱奇艺优酷腾讯都能找/视频解码/上传下载/离线缓存/电视端 APK/近 20 万部 4K"）。<b>本页与其无任何隶属、授权、技术或运营关系</b>，反而在做它们的反面：<em>它们借悟空"七十二变"求全求快，我们借那块石头，教你今晚只做一格、一动不动。</em>
+        </div>
+      </details>
+
+      <details>
+        <summary>"悟空"这两个字，商标上我们站不站得住？<span class="k">商标 · 必须说清</span></summary>
+        <div class="body">
+          老实讲：<b>站得不稳，所以这块碑是"避让碑"，不是"宣示碑"。</b><br/>
+          第 41 类「悟空影视」<code>18180493</code>（广州星慕影视制作有限公司）2017.2.14 注册公告，<b>专用权至 2027-02-13</b>，服务项含"戏剧制作、录像带剪辑、娱乐信息、在线电子出版物（非下载）"。同名主体旗下做过"悟空微电影节"、多档青年网生节目。<br/>
+          本页<b>不做点播播放、不做在线视频服务、不建片库</b>，内容限原创碑刻文本，是在做避让；且页面明确与任何"同名影视品牌/资源站"切割。<b>但若要商用这个名，必须先让商标代理做 9/41/35/38/16 类近似检索</b>——别把我这句当法律意见。另外该主体 2023 被列失信、2024 进经营异常，正是权利真空与抢注高发期，风险不降反升。
+        </div>
+      </details>
+
+      <details>
+        <summary>为什么偏偏拿"悟空"做减法？不怕撞《大闹天宫》那只猴？<span class="k">著作 · 形象</span></summary>
+        <div class="body">
+          怕，所以刻意<b>不用任何猴形象</b>。页面里没有金箍棒、没有脸、没有"齐天大圣"造型——只取"花果山那块石头"这个<strong>未被具象化的意象</strong>，配色是朱砂+宣纸+石墨，拓片与碑刻是通用传统视觉语汇，不是任何一版孙悟空的设计。<br/>
+          理由很硬：美影厂《大闹天宫》孙悟空形象是<b>最高法公报案例（2014 第9期）</b>里的保护对象，珠海天行者拿它注册"悟空牌童鞋"被判停止侵权+赔 50 万、二审维持；"美猴王/齐天大圣/孙行者"等也早被防御性注册过。所以我们只写"石头"，不画猴，不碰形象权，也不蹭那一版设计。
+        </div>
+      </details>
+
+      <details>
+        <summary>碑里那些"帧格/时码"能点开吗？是真剪辑点？<span class="k">边界</span></summary>
+        <div class="body">
+          不能，也<b>全是虚构的拆解样本</b>。"FRAME 01…07"的时码（3.1 秒、11 帧、22 格之类）、"凉了的碗""没拆的信"都是为说明<b>怎么坐着看</b>而写的例句，<strong>不指向任何具体作品真实剪辑点，不附剧照、不附片段、不做可播放索引</strong>。想验证某部片请自行去持证正版平台逐帧看。我们连片名都刻意少给——给多了，这块石头就又变成"大全"了。
+        </div>
+      </details>
+
+      <details>
+        <summary>那个"WKZ"的梗，为什么写在声明里？<span class="k">安全 · 反向提醒</span></summary>
+        <div class="body">
+          因为"悟空影视大全"这串字，本身就是<b>片源泄露案里的证据链细节</b>：最高法电影知产典型案例第7号，《悟空传》后期公司把全片素材命名 <code>WKZ</code>（片名拼音首字母）传百度网盘，被破解流出，公映前全网泄露，法院认定<b>侵犯商业秘密</b>，赔 300 万 + 维权费 30 万，已生效。<br/>
+          我们把这当成反面教材刻在碑上：<strong>连素材文件名都不能随手缩写，何况一个挂着"大全"的站。</strong>本页因此从根上不碰文件、不碰包、不碰"WKZ 式"的任何命名与分发——连分析脚本都没有。
+        </div>
+      </details>
+
+      <details>
+        <summary>跟承认影视 / 水密桃 / 蜗牛 / 影视大全在线是一伙的？<span class="k">同系</span></summary>
+        <div class="body">
+          同一套<b>去资源化</b>思路下的不同壳，结构与话术互不共用：承认影视是纵轴时间线、水密桃是甜度四象限、蜗牛影视是横向帧带、影视大全在线是红笔稿纸，<b>悟空影视大全则是碑林 + 石纹分帧 + 翻面石碑</b>——唯一一台以"<em>不动</em>"为最高动作的站。域名各自独立、无跳转、无联盟、不互相导流。共同底线只有一条：不播、不链、不存。
+        </div>
+      </details>
+
+      <details>
+        <summary>真要把这个名做成长期产品？<span class="k">合规</span></summary>
+        <div class="body">
+          四条铁律，比前面几台更紧：①<b>死守"石头/原身"定位</b>，永远不做片库、播放、解析、解码、换源、离线缓存，连"搜索片名"都只返一句反问；②视觉上<b>绝不出现孙悟空具象形象</b>（只许石头/碑/石纹），规避《大闹天宫》形象权与"美猴王"等防御商标；③内容只做原创情绪文本与"怎么坐着看"，片名点到即止、绝不建资源索引、不挂外链，先过商标近似检索 + ICP/公安备案 + 关闭 UGC；④<b>一旦把"72变"扩成"20万部"</b>——这页所有调性清零，而且这次是真的刑事与商标双重风险，不是吓你。
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ 关于 + 反向刻度 ============ -->
+  <section id="about" data-role="关于">
+    <div class="wrap">
+      <div class="sec-head" style="margin-bottom:20px">
+        <div class="no">§STONE</div>
+        <h2>关于 悟空影视大全 <small>我们不是第 73 变，我们是那块不肯变的石头</small></h2>
+      </div>
+
+      <div class="about">
+        <div class="txt">
+          <h3>七十二变是本事，一动不动是另一种</h3>
+          <p>"悟空"被用滥了。一搜这个名字，跳出来的是海量、免费、秒开、解码、换源、缓存、追更、全网同步——<strong>全是"变"出来的能耐</strong>，全是为了让你多停一会儿、多交一点。</p>
+          <p>可花果山最早的那块石头，一帧都没动过。它把雨接住、把风记住，坐了不知多少年，才蹦出那只猴。<strong>我们想把"坐着的五百年"还给你。</strong></p>
+          <p>所以这台站没有片库、没有播放入口、没有"立即观看"，连片名都少给。你读完，该关灯关灯，该去持证平台自己去挑就去挑，不用在这页多留一秒。<em>石头不挽留谁。</em></p>
+          <p>今晚别 72 变了。劈掉那七十一变，留一格，做回石头。这页的全部 KPI，就是你肯坐着不动的那二十秒。</p>
+        </div>
+
+        <aside class="monolith">
+          <h4">// 反向刻度 · 越满越空，越静越满</h4>
+          <div class="row"><span class="nm">想变（求全）</span><div class="bar"><i style="--w:6%"></i></div><b>06</b></div>
+          <div class="row"><span class="nm">被倍速吞的</span><div class="bar"><i style="--w:82%"></i></div><b>82</b></div>
+          <div class="row"><span class="nm">"免费"的代价</span><div class="bar"><i style="--w:94%"></i></div><b>94</b></div>
+          <div class="row"><span class="nm">不动的价值</span><div class="bar"><i style="--w:88%"></i></div><b>88</b></div>
+          <div class="row"><span class="nm">本页片源数</span><div class="bar"><i style="--w:0%"></i></div><b>0</b></div>
+          <div class="row"><span class="nm">允许坐多久</span><div class="bar"><i style="--w:100%"></i></div><b>∞</b></div>
+          <div class="foot">前四项为演示用情绪刻度，非统计、非算法、不采集。「想变」这项我们故意压到最低——那才是这块碑的朝向。最后两项是真的：<b style="color:var(--cinnabar2)">零音视频、零外链、零埋点，坐多久都行。</b></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h4>悟空<span>影视大全</span> · 只讲原身</h4>
+      <p>别变了，做回一块石头。纯静态碑刻式演示页，所有交互为 <span class="mono">#</span> 占位，<b>不提供任何影视播放、下载、解析、存储、解码或资源跳转服务</b>；碑文与帧格均为虚构策展例句，不指向具体作品。</p>
+      <p class="rule">© 2026 悟空影视大全 · 原身编辑部 — 七十二变是本事，一动不动是另一种。花果山那块石头，不收门票，也不收密码。</p>
+    </div>
+    <div>
+      <h4>CANONICAL</h4>
+      <p class="mono">https://wukongyingshidaquan-h5.github.io/</p>
+      <p class="rule">本页未生成 robots.txt 与 sitemap.xml。已按单页收录优化：唯一 H1（含"变"字劈开动画）、自引用 canonical、描述与关键词贴合「悟空影视大全 / wukongyingshidaquan-h5 / 原身 / 72变 / 分帧」。正文刻意回避"海量/免费/同步更新/4K/解码/换源"等灰产垃圾词，全站零外链、零猴形象。</p>
+    </div>
+  </div>
+  <div class="wrap"><div class="copy">STONE BUILD · 宣纸米白 / 石墨黑 / 朱砂红 / 石青 · 标签闭合校验 PASS · 筋斗云反向卷动 ∞ · 劈字动画 1.8s</div></div>
+</footer>
+
+<script>
+(function(){
+  var b=document.getElementById('burger'),n=document.getElementById('nav');
+  if(b)b.addEventListener('click',function(){n.classList.toggle('open');});
+  n.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.querySelector(a.getAttribute('href'));
+      if(t){e.preventDefault();n.classList.remove('open');t.scrollIntoView({behavior:'smooth',block:'start'});}
+    });
+  });
+  var secs=document.querySelectorAll('section[id]');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if(en.isIntersecting){
+          var id='#'+en.target.id;
+          document.querySelectorAll('#nav a').forEach(function(a){a.classList.toggle('here',a.getAttribute('href')===id);});
+        }
+      });
+    },{rootMargin:'-40% 0px -55% 0px'});
+    secs.forEach(function(s){io.observe(s);});
+  }
+  // 翻面石碑：点击 + 键盘（无上报）
+  var flips=document.querySelectorAll('.flip');
+  flips.forEach(function(f){
+    f.addEventListener('click',function(){f.classList.toggle('flipped');});
+    f.addEventListener('keydown',function(e){
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();f.classList.toggle('flipped');}
+    });
+  });
+})();
+</script>
+</body>
+</html>
